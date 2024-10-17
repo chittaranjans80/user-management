@@ -1,5 +1,12 @@
 import { Dispatch, SetStateAction } from "react";
 
+/**
+ * Defines an interface for validating UserType 
+ *
+ * @export
+ * @interface UserType
+ * @typedef {UserType}
+ */
 export interface UserType {
   _id: string;
   firstName: string;
@@ -8,6 +15,13 @@ export interface UserType {
   email: string;
 }
 
+/**
+ * Defines an interface for validating UsersListType 
+ *
+ * @export
+ * @interface UsersListType
+ * @typedef {UsersListType}
+ */
 export interface UsersListType {
   users: UserType[];
   setRefreshUserList: Dispatch<SetStateAction<boolean>>;

@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { check } from "express-validator";
 import bodyParser from "body-parser";
 
 import {
@@ -8,10 +7,18 @@ import {
   createNewUser,
   updateUserById,
   deleteUser,
+  userNameValidator,
+  emailValidator,
 } from "../controllers/users-controller";
+
+/**
+ * Contains configuration for all routing paths and methods
+ * Based on the supported configuration methods, the corresponding method is triggered from users controller
+ */
 
 const router = Router();
 
+//using middleware to convert the request params
 router.use(bodyParser.json());
 
 router.get("/", fetchAllUsers);
@@ -21,59 +28,15 @@ router.get("/:uid", fetchUserById);
 router.post(
   "/",
   //using validation to verify valid inputs (MIDDLEWARE)
-  [
-
-    check('firstName')
-    .escape()
-    .notEmpty()
-    .withMessage('First Name is required')
-    .isLength({max:100})       
-    .withMessage('First name can not exceed 100 characters')
-    .matches(/^[A-Za-z ]+$/)
-    .withMessage('Only characters are allowed for First Name')
-    ,
-
-    check('lastName')
-    .escape()
-    .notEmpty()
-    .withMessage('LastName is required')
-    .isLength({max:100})       
-    .withMessage('Last name can not exceed 100 characters')
-    .matches(/^[A-Za-z ]+$/)
-    .withMessage('Only characters are allowed for Last Name')
-    ,
- 
-    check('email')
-    .escape()
-    .notEmpty()
-    .isEmail()
-    .withMessage('Email is not valid')
-  ],
+  userNameValidator,
+  emailValidator,
   createNewUser
 );
 
 router.patch(
   "/:uid",
   // using validation to verify valid inputs (MIDDLEWARE)
-  [
-    check('firstName')
-    .escape()
-    .notEmpty()
-    .withMessage('First Name is required')
-    .isLength({max:100})       
-    .withMessage('First name can not exceed 100 characters')
-    .matches(/^[A-Za-z]+$/)
-    .withMessage('Only characters are allowed for First Name'),
-
-    check('lastName')
-    .escape()
-    .notEmpty()
-    .withMessage('LastName is required')
-    .isLength({max:100})       
-    .withMessage('Last name can not exceed 100 characters')
-    .matches(/^[A-Za-z]+$/)
-    .withMessage('Only characters are allowed for Last Name'),
-  ],
+  userNameValidator,
   updateUserById
 );
 

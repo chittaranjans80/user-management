@@ -10,8 +10,17 @@ import { UsersListType, UserType } from "../../../types/User-type";
 import { MethodsType } from "../../../types/methods-type";
 import { UserLabels } from "../../../constants/UserLabels";
 
+// Added class name as a constant for re-usability purpose
 const tdClasses = "border border-slate-300 p-2";
 
+/**
+ * UserGrid component
+ *
+ * @param {{ users: any; setRefreshUserList: any; }} param0
+ * @param {*} param0.users
+ * @param {*} param0.setRefreshUserList
+ * @returns {*}
+ */
 const UserGrid: FC<UsersListType> = ({ users, setRefreshUserList }) => {
   const navigate = useNavigate();
   const baseUrl = process.env.REACT_APP_BASE_URL || "";
@@ -28,8 +37,15 @@ const UserGrid: FC<UsersListType> = ({ users, setRefreshUserList }) => {
     setuserId(currentuserId);
   };
 
+  /**
+   * Handler from the button click from the modal popup,
+   * @param isConfirmed, whether the user has confirmed the action on modal popup
+   * If isConfirmed is false, No action is performed, since user has not confirmed the delete functionality
+   * If isConfirmed is true, the corresponding userId is passed for the Delete API invocation.
+   **/
+
   const handleContinue = (isConfirmed: any) => {
-    setDisplayModal(false)
+    setDisplayModal(false);
     if (!isConfirmed) {
       return;
     }
@@ -54,6 +70,12 @@ const UserGrid: FC<UsersListType> = ({ users, setRefreshUserList }) => {
         setLoading(false);
       });
   };
+
+  /**
+   * Handler for edit button functionality,
+   * @param {UserType} user,
+   * Navigates the user to the user page along with the user data
+   **/
 
   const handleEdit = (user: UserType) => {
     navigate(`/user`, { state: { id: user._id } });
@@ -82,7 +104,10 @@ const UserGrid: FC<UsersListType> = ({ users, setRefreshUserList }) => {
           onModalClose={($event) => handleContinue($event)}
         ></CustomModal>
       )}
-      <table className="w-full p-4 table-auto border-collapse border border-slate-400" data-testid="user-grid">
+      <table
+        className="w-full p-4 table-auto border-collapse border border-slate-400"
+        data-testid="user-grid"
+      >
         <thead>
           <tr>
             <th className={tdClasses}>{UserLabels.firstName}</th>

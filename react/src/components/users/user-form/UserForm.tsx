@@ -8,6 +8,11 @@ import { MethodsType } from "../../../types/methods-type";
 import { UserType } from "../../../types/User-type";
 import { UserLabels } from "../../../constants/UserLabels";
 
+/**
+ * Default value for User information, Used for initializing and resetting the value
+ *
+ * @type {{ _id: string; firstName: string; middleName: string; lastName: string; email: string; }}
+ */
 const defaultUserInfo = {
   _id: "",
   firstName: "",
@@ -16,7 +21,9 @@ const defaultUserInfo = {
   email: "",
 };
 
-const inputFieldClasses = "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+// Added class name as a constant for re-usability purpose
+const inputFieldClasses =
+  "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline";
 const labelClasses = "block text-gray-700 text-sm font-bold mb-2";
 
 export default function UserForm() {
@@ -44,6 +51,11 @@ export default function UserForm() {
     }
   }, [userId, baseUrl]);
 
+  /**
+   * Handler for submit button click,
+   * @param e, The event object
+   * Based on the presence of current userId, the method either invokes add/ Edit API call.
+   **/
   const handleSubmit = (e: any) => {
     e.preventDefault();
     setLoading(true);
@@ -74,6 +86,11 @@ export default function UserForm() {
       });
   };
 
+  /**
+   * Change handler for user input
+   * @param e, The event object
+   * Based on event object, it updates the corresponding value in the userData map.
+   **/
   const updateUserInfo = (e: any) => {
     const updatedInfo = {
       ...userData,
@@ -82,9 +99,13 @@ export default function UserForm() {
     setUserData(updatedInfo);
   };
 
+  /**
+   *Handler for back button click
+   * Navigates the user to the home route path
+   **/
   const handleBackClick = () => {
     navigate("/");
-  }
+  };
 
   return (
     <div className="p-4 m8 w-8/12">
@@ -110,10 +131,7 @@ export default function UserForm() {
         className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
       >
         <div className="mb-4">
-          <label
-            className={labelClasses}
-            htmlFor="firstName"
-          >
+          <label className={labelClasses} htmlFor="firstName">
             {UserLabels.firstName}
           </label>
           <input
@@ -131,10 +149,7 @@ export default function UserForm() {
         </div>
 
         <div className="mb-4">
-          <label
-            className={labelClasses}
-            htmlFor="middleName"
-          >
+          <label className={labelClasses} htmlFor="middleName">
             {UserLabels.middleName}
           </label>
           <input
@@ -151,10 +166,7 @@ export default function UserForm() {
         </div>
 
         <div className="mb-4">
-          <label
-            className={labelClasses}
-            htmlFor="lastName"
-          >
+          <label className={labelClasses} htmlFor="lastName">
             {UserLabels.lastName}
           </label>
           <input
@@ -172,10 +184,7 @@ export default function UserForm() {
         </div>
 
         <div className="mb-4">
-          <label
-            className={labelClasses}
-            htmlFor="email"
-          >
+          <label className={labelClasses} htmlFor="email">
             {UserLabels.email}
           </label>
           <input
