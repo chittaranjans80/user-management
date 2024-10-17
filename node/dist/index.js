@@ -9,9 +9,14 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const cors_1 = __importDefault(require("cors"));
 const users_route_1 = __importDefault(require("./routes/users-route"));
 dotenv_1.default.config();
+// Reads CLIENT_URI value from .env file configuration
 const CLIENT_URI = process.env.CLIENT_URI || "";
+// Reads PORT value from .env file configuration
 const port = process.env.PORT || 5000;
 const app = (0, express_1.default)();
+/**
+ * Customize options for CORS middleware
+ **/
 var options = {
     "origin": "*",
     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
@@ -29,7 +34,10 @@ app.use((error, req, res, next) => {
         message: error.message || 'An unknown error occured'
     });
 });
-// Connect to MongoDB
+/**
+ * Connect to MongoDB instance based on configured value from .env file
+ * If the connection is successful, subscribe to the app listner on the provided port number
+ **/
 (0, mongoose_1.connect)(CLIENT_URI).then(() => {
     app.listen(port);
 }).catch(() => {
