@@ -29,7 +29,7 @@ const labelClasses = "block text-gray-700 text-sm font-bold mb-2";
 export default function UserForm() {
   const navigate = useNavigate();
   const location = useLocation();
-  const baseUrl = process.env.REACT_APP_BASE_URL || "";
+  const baseUrl = process.env.API_BASE_URL || "";
   const [userId, setUserId] = useState<string>(location?.state?.id || "");
   const [userData, setUserData] = useState<UserType>(defaultUserInfo);
   const [toastMessage, setToastMessage] = useState<string>("");

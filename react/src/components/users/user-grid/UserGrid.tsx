@@ -23,7 +23,7 @@ const tdClasses = "border border-slate-300 p-2";
  */
 const UserGrid: FC<UsersListType> = ({ users, setRefreshUserList }) => {
   const navigate = useNavigate();
-  const baseUrl = process.env.REACT_APP_BASE_URL || "";
+  const baseUrl = process.env.API_BASE_URL || "";
 
   const [loading, setLoading] = useState<boolean>(false);
   const [displayModal, setDisplayModal] = useState<boolean>(false);

@@ -11,7 +11,7 @@ function UserList() {
   const [userList, setUserList] = useState<UserType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [refreshUserList, setRefreshUserList] = useState<boolean>(false);
-  const baseUrl = process.env.REACT_APP_BASE_URL || "";
+  const baseUrl = process.env.API_BASE_URL || "";
 
   useEffect(() => {
     const fetchUsers = async () => {
